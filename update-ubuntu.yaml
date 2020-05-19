@@ -1,0 +1,22 @@
+---
+
+- hosts: ubuntu
+  become: yes
+  gather_facts: true
+
+  tasks:
+    - name: Update repository cache
+      apt:
+        force_apt_get: yes
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        force_apt_get: yes
+        name: "*"
+        state: latest
+
+    - name: Autoremove old packages
+      apt:
+        force_apt_get: yes
+        Autoremove: yes

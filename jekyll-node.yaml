@@ -1,0 +1,31 @@
+---
+
+- hosts: jekyll
+  become: yes
+
+  tasks:
+    - name: "Install Apt Packages"
+      apt:
+        force_apt_get: yes
+        pkg:
+        - git
+        - open-vm-tools
+        - ruby-full
+        - build-essential
+        - zlib1g-dev
+        - openjdk-8-jdk
+
+    - name: "Install Jekyll"
+      gem:
+        name: jekyll
+        state: latest
+
+    - name: "Install Bundle"  
+      gem:
+        name: bundle
+        state: latest
+
+    - name: "Install s3_website"
+      gem:
+        name: s3_website
+        state: latest

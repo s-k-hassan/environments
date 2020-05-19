@@ -1,0 +1,24 @@
+---
+
+- hosts: devtop
+  become: yes
+
+  tasks:
+    - name: "Install Apt Packages"
+      apt:
+        force_apt_get: yes
+        pkg:
+        - git
+        - curl
+        - apt-transport-https
+        - open-vm-tools
+        - python3
+        - net-tools
+
+    - name: "Install VS Code"
+      apt:
+        deb: https://go.microsoft.com/fwlink/?LinkID=760868
+
+    - name: "Install Google Chrome"
+      apt:
+        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
