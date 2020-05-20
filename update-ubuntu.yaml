@@ -19,4 +19,4 @@
     - name: Autoremove old packages
       apt:
         force_apt_get: yes
-        Autoremove: yes
+        autoremove: yes
