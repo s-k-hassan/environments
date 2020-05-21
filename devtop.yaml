@@ -1,10 +1,10 @@
 ---
 
 - hosts: devtop
-  become: yes
 
   tasks:
     - name: "Install Apt Packages"
+      become: yes
       apt:
         force_apt_get: yes
         pkg:
@@ -16,9 +16,32 @@
         - net-tools
 
     - name: "Install VS Code"
+      become: yes
       apt:
         deb: https://go.microsoft.com/fwlink/?LinkID=760868
 
+    - name: "Install VS Code Extension - Ansible"
+      command: code --install-extension vscoss.vscode-ansible
+
+    - name: "Install VS Code Extension - GitHub"
+      command: code --install-extension github.vscode-pull-request-github
+
+    - name: "Install VS Code Extension - MarkdownLint"
+      command: code --install-extension davidanson.vscode-markdownlint
+
+    - name: "Install VS Code Extension - Python"
+      command: code --install-extension ms-python.python
+
+    - name: "Install VS Code Extension - Docker"
+      command: code --install-extension ms-azuretools.vscode-docker
+
+    - name: "Install VS Code Extension - RedHat YAML"
+      command: code --install-extension redhat.vscode-yaml
+
+    - name: "Install VS Code Extension - Splunk"
+      command: code --install-extension splunk.splunk
+
     - name: "Install Google Chrome"
+      become: yes
       apt:
         deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
