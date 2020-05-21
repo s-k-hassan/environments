@@ -4,7 +4,7 @@ Requires the following host groups defined:
 
 * update-ubuntu: ubuntu
 * devtop: devtop
-* jekyll-node: jekyll
+* install-jekyll-node: jekyll
 * ansible-node: ansible
 
 Default hosts location file is located at `/etc/ansible/hosts`
