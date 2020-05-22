@@ -18,3 +18,14 @@
         - software-properties-common
         - ansible
 
+#    - name: "Generate SSH Key"
+#      command: 'cat /dev/zero | ssh-keygen -q -N ""'
+#      args:
+#        creates: /home/server/.ssh/id_rsa
+
+    - name: "Pull Github Files"
+      git:
+        repo: https://github.com/s-k-hassan/environments.git
+        dest: /home/server/playbooks
+        accept_hostkey: yes
+        force: yes
