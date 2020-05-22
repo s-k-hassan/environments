@@ -1,6 +1,6 @@
 ---
 - hosts: servers
-
+  
   tasks:
     - name: "Set authorised keys"
       authorized_key:
