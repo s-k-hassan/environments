@@ -32,6 +32,9 @@
     - name: "Install VS Code Extension - Python"
       command: code --install-extension ms-python.python
 
+    - name: "Install AREPL for Python"
+      command: code --install-extension almenon.arepl
+
     - name: "Install VS Code Extension - Docker"
       command: code --install-extension ms-azuretools.vscode-docker
 
