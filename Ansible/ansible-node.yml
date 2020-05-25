@@ -26,6 +26,6 @@
     - name: "Pull Github Files"
       git:
         repo: https://github.com/s-k-hassan/environments.git
-        dest: /home/server/playbooks
+        dest: /home/$USER/playbooks
         accept_hostkey: yes
         force: yes

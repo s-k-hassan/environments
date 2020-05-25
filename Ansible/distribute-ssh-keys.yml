@@ -4,7 +4,7 @@
   tasks:
     - name: "Set authorised keys"
       authorized_key:
-        key: "{{lookup('file', '/home/devtop/.ssh/id_rsa.pub') }}"
+        key: "{{lookup('file', '/home/$USER/.ssh/id_rsa.pub') }}"
         user: server
         state: present
         validate_certs: no
