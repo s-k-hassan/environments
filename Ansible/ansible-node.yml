@@ -1,16 +1,19 @@
 ---
 
 - hosts: ansible
-  become: yes
+  vars:
+    user: devtop
   
   tasks:
     - name: "Add Apt Repo for Ansible"
+      become: yes
       apt_repository:
         repo: "ppa:ansible/ansible"
         state: present
         update_cache: yes
 
     - name: "Install Apt Packages"
+      become: yes
       apt:
         pkg:
         - git
@@ -18,14 +21,21 @@
         - software-properties-common
         - ansible
 
-#    - name: "Generate SSH Key"
-#      command: 'cat /dev/zero | ssh-keygen -q -N ""'
-#      args:
-#        creates: /home/server/.ssh/id_rsa
+    - name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+      openssh_keypair:
+        path: /home/{{ user}}/.ssh/id_rsa
+        owner: "{{ user}}"
+        group: "{{ user}}"
+
+    - name: Fix owner of the generated pub key
+      file:
+        path: /home/{{ user}}/.ssh/id_rsa.pub
+        owner: "{{ user}}"
+        group: "{{ user}}"
 
     - name: "Pull Github Files"
       git:
         repo: https://github.com/s-k-hassan/environments.git
-        dest: /home/$USER/playbooks
+        dest: /home/{{ user }}/playbooks
         accept_hostkey: yes
         force: yes

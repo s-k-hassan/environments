@@ -1,0 +1,19 @@
+---
+
+  - hosts: docker
+    become: yes
+
+    tasks:
+      - name: Start Splunk Image
+        docker_container:
+          name: splunk
+          state: started
+          image: splunk/splunk:latest
+          ports: 8000:8000
+          tty: yes
+          restart_policy: unless-stopped
+          env:
+            SPLUNK_PASSWORD: "password"
+            SPLUNK_START_ARGS: "--accept-license"
+
+

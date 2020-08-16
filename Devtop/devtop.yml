@@ -1,10 +1,12 @@
 ---
 
 - hosts: devtop
+  become: yes
+  vars:
+    user: devtop
 
   tasks:
     - name: "Install Apt Packages"
-      become: yes
       apt:
         force_apt_get: yes
         pkg:
@@ -15,48 +17,58 @@
         - python3
         - net-tools
 
-    - name: "Install VS Code"
-      become: yes
+#    - name: "Install VS Code"
+#      become: yes
+#      apt:
+#        deb: https://go.microsoft.com/fwlink/?LinkID=760868
+
+
+#    - name: "Install VS Code Extension - Ansible"
+#      command: code --install-extension vscoss.vscode-ansible
+
+#    - name: "Install VS Code Extension - GitHub"
+#      command: code --install-extension github.vscode-pull-request-github
+
+#    - name: "Install VS Code Extension - MarkdownLint"
+#      command: code --install-extension davidanson.vscode-markdownlint
+
+#    - name: "Install VS Code Extension - Python"
+#      command: code --install-extension ms-python.python
+
+#    - name: "Install AREPL for Python"
+#      command: code --install-extension almenon.arepl
+
+#    - name: "Install VS Code Extension - Docker"
+#      command: code --install-extension ms-azuretools.vscode-docker
+
+#    - name: "Install VS Code Extension - RedHat YAML"
+#      command: code --install-extension redhat.vscode-yaml
+
+#    - name: "Install VS Code Extension - Splunk"
+#      command: code --install-extension splunk.splunk
+
+    - name: Download and Add Powershell Key to Apt-Get Keyring
+      apt_key:
+        url: "https://packages.microsoft.com/keys/microsoft.asc"
+        state: present
+
+    - name: Add Powershell Repository into /etc/apt/sources.list - Bionic
+      apt_repository:
+        repo: 'deb [arch=amd64] https://packages.microsoft.com/ubuntu/18.04/prod bionic main'
+        state: present
+
+    - name: Install Powershell
       apt:
-        deb: https://go.microsoft.com/fwlink/?LinkID=760868
+        update_cache: yes
+        pkg: powershell
+        state: latest
+        force: yes
 
-    - name: "Install VS Code Extension - Ansible"
-      command: code --install-extension vscoss.vscode-ansible
-
-    - name: "Install VS Code Extension - GitHub"
-      command: code --install-extension github.vscode-pull-request-github
-
-    - name: "Install VS Code Extension - MarkdownLint"
-      command: code --install-extension davidanson.vscode-markdownlint
-
-    - name: "Install VS Code Extension - Python"
-      command: code --install-extension ms-python.python
-
-    - name: "Install AREPL for Python"
-      command: code --install-extension almenon.arepl
-
-    - name: "Install VS Code Extension - Docker"
-      command: code --install-extension ms-azuretools.vscode-docker
-
-    - name: "Install VS Code Extension - RedHat YAML"
-      command: code --install-extension redhat.vscode-yaml
-
-    - name: "Install VS Code Extension - Splunk"
-      command: code --install-extension splunk.splunk
-
-    - name: "Download Powershell Core"
-      become: yes
-      apt:
-        deb: https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
-
-    - name: "Install Powershell Core"
-      become: yes
-      apt:
-        force_apt_get: yes
-        pkg:
-          - powershell
+    - name: Download Google Chrome
+      get_url: 
+        url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        dest: /home/{{ user}}/google-chrome-stable_current_amd64.deb
 
     - name: "Install Google Chrome"
-      become: yes
       apt:
-        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        deb: /home/{{ user }}/google-chrome-stable_current_amd64.deb
