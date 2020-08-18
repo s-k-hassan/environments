@@ -12,6 +12,8 @@
           ports: 8000:8000
           tty: yes
           restart_policy: unless-stopped
+          volumes:
+            - /media/splunk-data: /opt/splunk/var
           env:
             SPLUNK_PASSWORD: "password"
             SPLUNK_START_ARGS: "--accept-license"

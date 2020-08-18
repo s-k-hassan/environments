@@ -24,3 +24,17 @@
 
     - name: Update apt and install docker-ce
       apt: update_cache=yes name=docker-ce state=latest
+
+    - name: Mount Splunk-Data drive
+      mount:
+       path: /media/splunk-data
+       src: /dev/sdb1
+       state: mounted
+       fstype: ext4
+
+    - name: Mount Container-Data drive
+      mount:
+        path: /media/container-data
+        src: /dev/sdc1
+        state: mounted
+        fstype: ext4
