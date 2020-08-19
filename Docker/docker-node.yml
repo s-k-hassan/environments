@@ -2,6 +2,9 @@
 
 - hosts: docker
   become: yes
+  vars:
+    splunk_mount: "192.168.8.205:/volume2/container-data/splunk"
+    data_mount: "192.168.8.205:/volume2/container-data/container-data"  
 
 
   tasks:
@@ -27,14 +30,14 @@
 
     - name: Mount Splunk-Data drive
       mount:
-       path: /media/splunk-data
-       src: /dev/sdb1
+       path: /nfs/splunk
+       src: {{ splunk_mount }}
        state: mounted
        fstype: ext4
 
     - name: Mount Container-Data drive
       mount:
-        path: /media/container-data
-        src: /dev/sdc1
+        path: /nfs/container-data
+        src: {{ data_mount }}
         state: mounted
         fstype: ext4
