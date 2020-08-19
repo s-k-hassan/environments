@@ -3,7 +3,7 @@
 - hosts: devtop
   become: yes
   vars:
-    user: devtop
+    user: server
 
   tasks:
     - name: "Install Apt Packages"

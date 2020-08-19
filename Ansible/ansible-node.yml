@@ -2,7 +2,7 @@
 
 - hosts: ansible
   vars:
-    user: devtop
+    user: server
   
   tasks:
     - name: "Add Apt Repo for Ansible"
