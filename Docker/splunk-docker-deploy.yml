@@ -2,6 +2,8 @@
 
   - hosts: docker
     become: yes
+    vars:
+      splunk_data_drive: "/nfs/splunk"
 
     tasks:
       - name: Start Splunk Image
@@ -13,7 +15,7 @@
           tty: yes
           restart_policy: unless-stopped
           volumes:
-            - /media/splunk-data: /opt/splunk/var
+            - "{{  /nfs/splunk  }}": /opt/splunk/var
           env:
             SPLUNK_PASSWORD: "password"
             SPLUNK_START_ARGS: "--accept-license"

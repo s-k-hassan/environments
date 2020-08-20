@@ -33,11 +33,11 @@
        path: /nfs/splunk
        src: {{ splunk_mount }}
        state: mounted
-       fstype: ext4
+       fstype: nfs
 
     - name: Mount Container-Data drive
       mount:
         path: /nfs/container-data
         src: {{ data_mount }}
         state: mounted
-        fstype: ext4
+        fstype: nfs
