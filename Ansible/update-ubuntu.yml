@@ -9,6 +9,12 @@
       apt:
         update_cache: yes
 
+    - name: "Install Base Packages"
+      apt:
+        pkg:
+        - open-vm-tools
+        - resolvconf
+
     - name: Upgrade all packages
       apt:
         name: "*"

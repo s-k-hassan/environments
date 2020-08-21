@@ -1,0 +1,46 @@
+---
+
+- hosts: test-node
+  become: yes
+  gather_facts: true
+
+  tasks:
+    - name: "Set authorised keys"
+      authorized_key:
+        key: "{{lookup('file', '/home/$USER/.ssh/id_rsa.pub') }}"
+        user: server
+        state: present
+        validate_certs: no
+  
+    - name: Set DNS Options
+      nmcli:
+        conn_name: my-eth1
+        ifname: '*'
+        type: ethernet
+        dns4:
+        - 192.168.0.1
+        state: present
+
+    - name: Update repository cache
+      apt:
+        update_cache: yes
+
+    - name: Install Base Packages
+      apt:
+        force_apt_get: yes
+        pkg:
+        - open-vm-tools
+        - resolvconf
+
+    - name: Upgrade all packages
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Autoremove old packages
+      apt:
+        autoremove: yes
+
+    - name: Reboot system if required
+      command: shutdown -r now 'Rebooting to complete system upgrade'
+      removes: /var/run/reboot-required
